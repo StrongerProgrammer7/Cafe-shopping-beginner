@@ -1,0 +1,27 @@
+{
+  "name": "cafe-shopping-beginner",
+  "version": "1.0.0",
+  "description": "Simple website about cafe: Make order, create category and position, analytics data. Using NodeJS and Angular",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StrongerProgrammer7/Cafe-shopping-beginner.git"
+  },
+  "keywords": [
+    "express",
+    "angular",
+    "ex6",
+    "html",
+    "css",
+    "nodejs"
+  ],
+  "author": "Adbyukov Z.M.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StrongerProgrammer7/Cafe-shopping-beginner/issues"
+  },
+  "homepage": "https://github.com/StrongerProgrammer7/Cafe-shopping-beginner#readme"
+}
