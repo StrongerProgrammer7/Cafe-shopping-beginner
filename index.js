@@ -1,6 +1,6 @@
 const app = require('./app');
 const db = require('./routes/database');
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 4000
 
 async function startServer()
 {

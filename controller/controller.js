@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const controller = Router();
+
 const login = require('../service/login');
 const register = require('../service/register');
 
