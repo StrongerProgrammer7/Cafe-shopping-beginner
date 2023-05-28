@@ -28,5 +28,5 @@ Users.init(
 module.exports = sequelize.model('Users');
 
 sequelize.sync()
-.then(result=>console.log('Create/Sync table'))
+.then(result=>console.log('Create/Sync table users'))
 .catch(e => console.log(e.message));

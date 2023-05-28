@@ -1,32 +1,47 @@
 const { Sequelize, DataTypes,Model} = require('sequelize');
 const sequelize = require('../routes/database');
+const Users = require('./user');
 
+class Categories extends Model {};
 
-// class Categories extends Model {};
-
-// Categories.init(
-//     {
-//         email:
-//         {
-//             type: DataTypes.STRING(255),
-//             allowNull: false,
-//             unique: true
-//         },
-//         password:
-//         {
-//             type: DataTypes.STRING(255),
-//             allowNull: false
-//         }
-//     },
-//     {
+Categories.init(
+    {
+        name:
+        {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            unique: true
+        },
+        imageSrc:
+        {
+            type: DataTypes.STRING,
+            allowNull:true,
+            defaultValue:''
+        },
+        user:
+        {
+            type: DataTypes.INTEGER,
+            references:
+            {
+                model: Users,
+                key: 'id'
+            }
+        }
+    },
+    {
         
-//         sequelize,
-//         modelName: 'Categories'
-//     }
-// );
+        sequelize,
+        modelName: 'Categories'
+    }
+);
 
-// module.exports = sequelize.model('Categories');
+// Team.hasMany(Player, {
+//     foreignKey: 'clubId'
+//   });
+//   Player.belongsTo(Team);
 
-// sequelize.sync()
-// .then(result=>console.log('Create/Sync table'))
-// .catch(e => console.log(e.message));
+module.exports = sequelize.model('Categories');
+
+sequelize.sync()
+.then(result=>console.log('Create/Sync table Categories'))
+.catch(e => console.log(e.message));

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const errorHadler = require('./utils/errorHandler');
 
 const register = async (req,res) =>
 {
@@ -35,7 +36,7 @@ const register = async (req,res) =>
             }
             catch(e)
             {
-                console.log(e.message);
+                errorHadler(res,e);
             }
         });
     });
