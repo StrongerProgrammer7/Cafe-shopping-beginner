@@ -7,8 +7,8 @@ const generation_token = function(id,email)
 {
     const data =
     {
-        email,
-        id
+        email:email,
+        userId:id
     };
     return jwt.sign(data,`${process.env.JWT_SECRET}`,
     {
