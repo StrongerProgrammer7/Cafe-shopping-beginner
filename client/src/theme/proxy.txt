@@ -1,0 +1,10 @@
+What is proxy?
+
+Back-end
+example
+http://localhost:5000/api/category
+if change port => port = 6000 this problem => solution: proxy
+
+Front-end
+
+http://localhost:5000/api/category
