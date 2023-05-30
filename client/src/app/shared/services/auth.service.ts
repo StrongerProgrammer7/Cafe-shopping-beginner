@@ -17,9 +17,17 @@ export class AuthService
   {
 
   }
-  register()
+  register(user: User): Observable<{message:string,users:object}>
   {
-
+    return this.http.post<{message:string,users:object}>('/api/register',user)
+    .pipe(
+      tap(
+        ({message,users}) =>
+        {
+          console.log(message,users);
+        }
+      )
+    )
   }
 
   login(user: User): Observable<{token:string,message:string,cookies:object}>

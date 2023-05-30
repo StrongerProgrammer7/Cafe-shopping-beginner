@@ -14,7 +14,7 @@ export class LoginPageComponent implements OnInit, OnDestroy
   form: FormGroup = new FormGroup(
     {
       email: new FormControl(null,[Validators.required,Validators.email]),
-      password: new FormControl(null,[Validators.required,Validators.minLength(2)])
+      password: new FormControl(null,[Validators.required,Validators.minLength(4)])
     }
   );
   aSub: Subscription = new Subscription;
@@ -37,7 +37,7 @@ export class LoginPageComponent implements OnInit, OnDestroy
           }
         },
         error: (e) => console.error(e),
-        complete: () => console.log('complete')
+        complete: () => console.log('complete loggedin')
       }
     )
   }

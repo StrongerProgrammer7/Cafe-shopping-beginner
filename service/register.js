@@ -32,7 +32,7 @@ const register = async (req,res) =>
                         password: hashPass
                     }
                 );
-                return res.status(201).json({message:"create user", users:user});
+                return res.status(201).json({message:"create user", users:{email: user.email, date: Date.now()}});
             }
             catch(e)
             {
