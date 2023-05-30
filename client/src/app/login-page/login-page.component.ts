@@ -2,6 +2,7 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MaterialService } from '../shared/middleware/material.service';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -30,10 +31,13 @@ export class LoginPageComponent implements OnInit, OnDestroy
         {
           if(params['registered'])
           {
-            //you can sign up
+            MaterialService.toast('Now you can sign up system, with your data');
           }else if (params['accessDenied'])
           {
-            //You should register to the system
+            MaterialService.toast('Begin register,after sign up');
+          }else if (params['sessionFailed'])
+          {
+            MaterialService.toast('Pleasy repeat sign up')
           }
         },
         error: (e) => console.error(e),
@@ -60,6 +64,7 @@ export class LoginPageComponent implements OnInit, OnDestroy
       next: (v) => console.log(v), //this.router.navigate(['/overview'])
       error: (e) =>
       {
+        MaterialService.toast(e.error.message);
         console.warn(e);
         this.form.enable()
       },

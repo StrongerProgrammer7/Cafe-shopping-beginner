@@ -30,15 +30,15 @@ export class AuthService
     )
   }
 
-  login(user: User): Observable<{token:string,message:string,cookies:object}>
+  login(user: User): Observable<{tokens:string,message:string,cookies:object}>
   {
-    return this.http.post<{token:string,message:string,cookies:object}>('/api/login',user)
+    return this.http.post<{tokens:string,message:string,cookies:object}>('/api/login',user)
     .pipe(
       tap(
-        ({token,message,cookies}) =>
+        ({tokens,message,cookies}) =>
         {
-          localStorage.setItem('auth-token',token);
-          this.setToken(token);
+          localStorage.setItem('auth-token',tokens);
+          this.setToken(tokens);
         }
       )
     )
@@ -52,7 +52,7 @@ export class AuthService
 
   getToken(): string
   {
-    return this.token
+    return this.token;
   }
 
   isAuthenticated(): boolean

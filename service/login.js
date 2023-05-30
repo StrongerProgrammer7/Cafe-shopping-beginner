@@ -43,7 +43,7 @@ const login = async (req,res) =>
     const token = generation_token(user.id,email);
     const cookies_option =
     {
-        expiresIn: 60*60,
+        expiresIn: 60*60*24,
         httpOnly:true
     }
     const data =

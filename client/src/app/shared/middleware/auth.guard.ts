@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateChildFn, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { AuthService } from "../services/auth.service";
@@ -9,7 +9,7 @@ import { AuthService } from "../services/auth.service";
   }
 )
 
-export class AuthGuad implements CanActivateFn,CanActivateChildFn
+export class AuthGuad
 {
 
   constructor(private auth: AuthService,
@@ -17,7 +17,7 @@ export class AuthGuad implements CanActivateFn,CanActivateChildFn
   {
 
   }
-  canActivateFn(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean>
+  canActivate(): Observable<boolean>
   {
     if(this.auth.isAuthenticated())
       return of(true)
@@ -32,8 +32,20 @@ export class AuthGuad implements CanActivateFn,CanActivateChildFn
     return of(false);
   }
 
-  canActivateChildFn(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean>
+  canActivateChild(): Observable<boolean>
   {
-    return this.canActivateFn(route,state);
+    return this.canActivate();
   }
+}
+
+export const canActivateLogin: CanActivateFn =
+(route: ActivatedRouteSnapshot,state: RouterStateSnapshot) =>
+{
+  return inject(AuthGuad).canActivate();
+}
+
+export const canActivateChildLogin: CanActivateChildFn =
+(childRoute: ActivatedRouteSnapshot,state: RouterStateSnapshot) =>
+{
+  return inject(AuthGuad).canActivateChild();
 }
