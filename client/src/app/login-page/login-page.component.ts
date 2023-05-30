@@ -61,7 +61,7 @@ export class LoginPageComponent implements OnInit, OnDestroy
     };
     this.aSub = this.auth.login(user).subscribe(
      {
-      next: (v) => console.log(v), //this.router.navigate(['/overview'])
+      next: (v) => this.router.navigate(['/overview']),
       error: (e) =>
       {
         MaterialService.toast(e.error.message);
