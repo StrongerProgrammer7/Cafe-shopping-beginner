@@ -13,6 +13,12 @@ export class MaterialService
   {
     M.FloatingActionButton.init(ref.nativeElement)
   }
+
+  static updateInputs()
+  {
+    M.updateTextFields();
+  }
+
 }
 
 

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Category } from "../interfaces";
+import { Category, Message } from "../interfaces";
 
 @Injectable(
   {
@@ -19,5 +19,37 @@ export class CategoriesService
   fetch(): Observable<{success:string,categories:Category[]}>
   {
     return this.http.get<{success:string,categories:Category[]}>('/api/category');
+  }
+
+  getById(id: string): Observable<{success:string,category:Category}>
+  {
+    return this.http.get<{success:string,category:Category}>(`/api/category/${id}`);
+  }
+
+  create(name: string, image?: File): Observable<Category>
+  {
+    const fd = new FormData();
+    if(image)
+    {
+      fd.append('image',image,image.name); // в контроллере image должно совпадать
+    }
+    fd.append('name',name);
+    return this.http.post<Category>('/api/category',fd);
+  }
+
+  update(id:string,name: string, image?: File): Observable<Category>
+  {
+    const fd = new FormData();
+    if(image)
+    {
+      fd.append('image',image,image.name); // в контроллере image должно совпадать
+    }
+    fd.append('name',name);
+    return this.http.patch<Category>(`/api/category/${id}`,fd);
+  }
+
+  delete(id: string): Observable<Message>
+  {
+    return this.http.delete<Message>(`/api/category/${id}`);
   }
 }

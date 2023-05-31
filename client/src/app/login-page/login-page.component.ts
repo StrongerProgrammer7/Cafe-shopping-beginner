@@ -64,9 +64,11 @@ export class LoginPageComponent implements OnInit, OnDestroy
       next: (v) => this.router.navigate(['/overview']),
       error: (e) =>
       {
-        MaterialService.toast(e.error.message);
+
+        MaterialService.toast('Not correct password');
+        this.form.enable();
         console.warn(e);
-        this.form.enable()
+
       },
       complete: () => console.info('complete: loggedin')
      }

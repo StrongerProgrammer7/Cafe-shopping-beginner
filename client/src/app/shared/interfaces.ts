@@ -11,3 +11,8 @@ export interface Category
   user?: string,
   id?: string
 }
+
+export interface Message
+{
+  message: string
+}
