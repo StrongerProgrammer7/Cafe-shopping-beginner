@@ -40,10 +40,11 @@ const login = async (req,res) =>
         return res.status(401).json({message:"Not correct password",status:false});
     
     //Cookie
+    
     const token = generation_token(user.id,email);
     const cookies_option =
     {
-        expiresIn: 60*60*24,
+        expiresIn: process.env.JWT_EXPIRES,
         httpOnly:true
     }
     const data =
