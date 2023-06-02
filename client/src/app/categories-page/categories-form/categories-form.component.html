@@ -63,4 +63,8 @@
 
 
 
-<app-positions-form></app-positions-form>
+<app-positions-form
+*ngIf="category && category.id"
+[categoryId]="category.id">
+
+</app-positions-form>

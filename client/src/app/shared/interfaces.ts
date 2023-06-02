@@ -12,7 +12,22 @@ export interface Category
   id?: string
 }
 
+export interface Position
+{
+  name:string,
+  cost:number,
+  categoryId:number,
+  user?:number,
+  id?:number
+}
+
 export interface Message
 {
   message: string
+}
+
+export interface Message_Position
+{
+  message: string
+  position: Position
 }

@@ -28,7 +28,7 @@ export class CategoriesFormComponent implements OnInit
               private categoriesService: CategoriesService,
               private router: Router)
   {
-
+    this.form.enable();
   }
 
   ngOnInit(): void
@@ -75,14 +75,18 @@ export class CategoriesFormComponent implements OnInit
             this.imagePreview = `${category.imageSrc}`;
             MaterialService.updateInputs();
           }
-          this.form.enable();
+
         },
         error: (e) =>
         {
           MaterialService.toast(e.error.message);
           console.error(e);
         },
-        complete: () => console.info('complete: get category')
+        complete: () =>
+        {
+          this.form.enable();
+          console.info('complete: get category')
+        }
       }
       )
   };

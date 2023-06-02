@@ -11,11 +11,11 @@ class Position
     {
         try 
         {
-            const positions = await Position_model.findOne(
+            const positions = await Position_model.findAll(
                 {
                     where:
                     {
-                        category:req.params.categoryId,
+                        category:req.params.category_id,
                         user: req.user.id
                     }
                 }
@@ -79,13 +79,13 @@ class Position
             {
                 name,
                 cost,
-                category
+                categoryId
             } = req.body;
             const position = await Position_model.update(
                 {
                     name:name,
                     cost:cost,
-                    category:category,
+                    category:categoryId,
                     user:req.user.id
                 },
                 {
@@ -95,7 +95,7 @@ class Position
                     }
                 }
             )
-            return res.status(201).json({message:"delete position "});  
+            return res.status(201).json({message:"update position "});  
         } catch (error) 
         {
             errorHadler(res,error);    
