@@ -163,7 +163,9 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy
         },
         complete: () =>
         {
-          this.updateForm();
+          this.form.enable();
+          this.onCloseModal();
+          this.clearForm();
           console.log('Complete added position');
         }
       }
@@ -179,8 +181,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy
         next:(mes) =>
         {
           MaterialService.toast(mes.message);
-          let index = this.positions.findIndex(pos => pos.id === position.id);
-          this.positions[index] = position;
         },
         error: (e) =>
         {
@@ -188,18 +188,13 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy
         },
         complete: () =>
         {
-          this.updateForm();
+          this.form.enable();
+          this.onCloseModal();
+          this.clearForm();
           console.log('Complete update position');
         }
       }
     );
     this.positionEditId = -1;
-  }
-
-  private updateForm()
-  {
-    this.form.enable();
-    this.onCloseModal();
-    this.clearForm();
   }
 }
