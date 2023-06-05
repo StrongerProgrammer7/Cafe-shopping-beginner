@@ -31,3 +31,9 @@ export interface Message_Position
   message: string
   position: Position
 }
+
+export interface Message_Categories
+{
+  message:string,
+  categories: Category[]
+}

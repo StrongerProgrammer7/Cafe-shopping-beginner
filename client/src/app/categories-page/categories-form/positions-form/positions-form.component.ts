@@ -181,6 +181,8 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy
         next:(mes) =>
         {
           MaterialService.toast(mes.message);
+          let index = this.positions.findIndex(pos => pos.id === position.id);
+          this.positions[index] = position;
         },
         error: (e) =>
         {

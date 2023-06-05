@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Category, Message } from "../interfaces";
+import { Category, Message, Message_Categories } from "../interfaces";
 
 @Injectable(
   {
@@ -16,9 +16,9 @@ export class CategoriesService
 
   }
 
-  fetch(): Observable<{success:string,categories:Category[]}>
+  fetch(): Observable<Message_Categories>
   {
-    return this.http.get<{success:string,categories:Category[]}>('/api/category');
+    return this.http.get<Message_Categories>('/api/category');
   }
 
   getById(id: string): Observable<{success:string,category:Category}>
