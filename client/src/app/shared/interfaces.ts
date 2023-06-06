@@ -24,7 +24,8 @@ export interface Position
   cost:number,
   categoryId:number,
   user?:number,
-  id?:number
+  id?:number,
+  count?:number
 }
 
 export interface Message

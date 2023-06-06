@@ -20,7 +20,7 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { CategoriesFormComponent } from './categories-page/categories-form/categories-form.component';
 import { PositionsFormComponent } from './categories-page/categories-form/positions-form/positions-form.component';
 import { OrderPositionComponent } from './order-page/order-position/order-position.component';
-import { OrderMenuComponent } from './order-page/order-menu/order-menu.component';
+import { OrderCategoriesComponent } from './order-page/order-categories/order-categories.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { OrderMenuComponent } from './order-page/order-menu/order-menu.component
     CategoriesFormComponent,
     PositionsFormComponent,
     OrderPositionComponent,
-    OrderMenuComponent
+    OrderCategoriesComponent
   ],
   imports: [
     BrowserModule,

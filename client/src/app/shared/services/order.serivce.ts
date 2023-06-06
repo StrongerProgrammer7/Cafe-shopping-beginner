@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Order } from "../interfaces";
+import { Order, Position } from "../interfaces";
 
 
 @Injectable(
@@ -32,24 +32,18 @@ export class OrderService
 
 export class Order_menu
 {
-  order_menu: Order[];
-  mes: string;
-  private static order: Order_menu;
-
-  static getInstance(): Order_menu
+  add(position: Position)
   {
-    if(this.order === undefined || this.order === null)
-    {
-      this.order = new Order_menu();
-    }
 
-    return this.order;
+  }
+  remove()
+  {
+
   }
 
-  private constructor()
+  clear()
   {
-    this.order_menu = [];
-    this.mes = 'hello';
+
   }
 
 }

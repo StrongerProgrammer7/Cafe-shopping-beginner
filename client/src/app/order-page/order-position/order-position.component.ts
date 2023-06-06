@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { of, switchMap } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
 import { Position } from 'src/app/shared/interfaces';
 import { MaterialService } from 'src/app/shared/middleware/material.service';
+import { Order_menu } from 'src/app/shared/services/order.serivce';
 import { PositionService } from 'src/app/shared/services/position.service';
 
 @Component({
@@ -18,10 +19,9 @@ export class OrderPositionComponent implements OnInit
   loading: boolean = false;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
+              private orders: Order_menu,
               private positionService: PositionService)
   {
-
   }
   ngOnInit(): void
   {
@@ -34,7 +34,9 @@ export class OrderPositionComponent implements OnInit
           if(params['id'])
           {
             return this.positionService.getAll(params['id']);
+
           }
+
           return of(null);
         }
       )
@@ -44,7 +46,15 @@ export class OrderPositionComponent implements OnInit
         next: (positions) =>
         {
           if(positions)
+          {
+            positions.map(pos=>
+              {
+                pos.count = 1;
+                return pos;
+              })
             this.positions = positions;
+          }
+
             this.loading = false;
         },
         error: (e) =>
@@ -64,8 +74,8 @@ export class OrderPositionComponent implements OnInit
 
   onAddedToOrder(position: Position)
   {
-    console.log(position.name);
-    console.log(document.getElementsByTagName("input")[0].value);
+    console.log(position);
+    this.orders.add(position);
   }
 
 }

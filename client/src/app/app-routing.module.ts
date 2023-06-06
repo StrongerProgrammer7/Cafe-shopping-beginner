@@ -5,6 +5,7 @@ import { CategoriesFormComponent } from './categories-page/categories-form/categ
 import { CategoriesPageComponent } from './categories-page/categories-page.component';
 import { HistoryPageComponent } from './history-page/history-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { OrderCategoriesComponent } from './order-page/order-categories/order-categories.component';
 import { OrderPageComponent } from './order-page/order-page.component';
 import { OrderPositionComponent } from './order-page/order-position/order-position.component';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
@@ -26,8 +27,10 @@ const routes: Routes = [
     path: '', component: SiteLayoutComponent, canActivate: [canActivateLogin, canActivateChildLogin],
     children: [
       {path: 'overview',component: OverviewPageComponent},
-      {path: 'order',component: OrderPageComponent},
-      {path: 'order_position/:id', component: OrderPositionComponent},
+      {path: 'order',component: OrderPageComponent, children:[
+        {path:'',component:OrderCategoriesComponent},
+        {path:':id',component: OrderPositionComponent}
+      ]},
       {path: 'analytics',component: AnalyticsPageComponent},
       {path: 'history',component: HistoryPageComponent},
       {path: 'categories',component: CategoriesPageComponent},
