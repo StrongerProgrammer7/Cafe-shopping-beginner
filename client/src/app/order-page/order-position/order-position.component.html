@@ -1,16 +1,9 @@
-<div class="page-title">
-  <h4>
-      <a href="#">Заказ</a>
-      <i class="material-icons">keyboard_arrow_right</i>
-      Добавить продукцию
-  </h4>
-  <button class="waves-effect btn grey darken-1 modal-trigger" data-target="explore-order">
-      Завершить
-  </button>
-</div>
+
+<app-order-menu
+[isAdd]="true"></app-order-menu>
 
 
-<table class="highlight">
+<table class="highlight" *ngIf="!loading; else loader">
   <thead>
   <tr>
       <th>Название</th>
@@ -20,42 +13,32 @@
   </tr>
   </thead>
 
-  <tbody>
-  <tr>
-      <td>Coffee</td>
-      <td>200 руб.</td>
+  <tbody *ngIf="positions.length!==0">
+  <tr
+  *ngFor="let position of positions"
+  >
+      <td>{{position.name}}</td>
+      <td> {{position.cost}} руб.</td>
       <td>
           <div class="input-field inline order-position-input">
               <input type="number" value="1" min="1">
           </div>
       </td>
       <td>
-          <button class="btn waves-effect wavers-light btn-small">Добавить</button>
+          <button class="btn waves-effect wavers-light btn-small"
+          (click)="onAddedToOrder(position)"
+          >Добавить</button>
       </td>
   </tr>
-  <tr>
-      <td>Coffee</td>
-      <td>200 руб.</td>
-      <td>
-          <div class="input-field inline order-position-input">
-              <input type="number" value="1" min="1">
-          </div>
-      </td>
-      <td>
-          <button class="btn waves-effect wavers-light btn-small">Добавить</button>
-      </td>
-  </tr>
-  <tr>
-      <td>Coffee</td>
-      <td>200 руб.</td>
-      <td>
-          <div class="input-field inline order-position-input">
-              <input type="number" value="1" min="1">
-          </div>
-      </td>
-      <td>
-          <button class="btn waves-effect wavers-light btn-small">Добавить</button>
-      </td>
+  <tr *ngIf="positions.length ===0">
+    <td>Продуктов нет</td>
+    <td> --- </td>
+    <td> ---</td>
+    <td> ---</td>
   </tr>
   </tbody>
 </table>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

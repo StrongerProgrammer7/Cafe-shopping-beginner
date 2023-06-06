@@ -1,6 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MaterialInstance, MaterialService } from '../shared/middleware/material.service';
+import { Message_Categories, Category } from '../shared/interfaces';
+
+import { CategoriesService } from '../shared/services/categories.service';
+import { Order_menu } from '../shared/services/order.serivce';
 
 
 @Component({
@@ -10,43 +13,29 @@ import { MaterialInstance, MaterialService } from '../shared/middleware/material
 })
 
 
-export class OrderPageComponent implements AfterViewInit, OnDestroy
+export class OrderPageComponent implements OnInit
 {
+  categories$!: Observable<Message_Categories>
+  addPositionToOrder = false;
+  categoryIdToPosition = -1;
+  // order: Order_menu;
 
-  @ViewChild('modal_finished') modal_finishedRef!: ElementRef;
-  modal!: MaterialInstance;
-
-  constructor()
+  constructor(private categoriesService: CategoriesService)
   {
-
+    // this.order = Order_menu.getInstance();
+    // this.order.mes = 'Im created';
+    // console.log(this.order.mes);
   }
 
-  ngAfterViewInit(): void
+
+  ngOnInit(): void
   {
-    this.modal = MaterialService.initModal(this.modal_finishedRef);
+    this.categories$ = this.categoriesService.fetch();
   }
 
-  ngOnDestroy(): void
+  onSelectCategory(category:Category)
   {
-    if(this.modal.destroy)
-      this.modal.destroy();
+    if(category.id)
+      this.categoryIdToPosition = +category.id;
   }
-
-  OnFinished()
-  {
-    if(this.modal.open)
-      this.modal.open();
-  }
-
-  onSubmit()
-  {
-    console.log('Order!');
-  }
-
-  onCloseModal()
-  {
-    if(this.modal.close)
-      this.modal.close();
-  }
-
 }

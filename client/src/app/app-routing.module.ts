@@ -6,6 +6,7 @@ import { CategoriesPageComponent } from './categories-page/categories-page.compo
 import { HistoryPageComponent } from './history-page/history-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { OrderPageComponent } from './order-page/order-page.component';
+import { OrderPositionComponent } from './order-page/order-position/order-position.component';
 import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
     children: [
       {path: 'overview',component: OverviewPageComponent},
       {path: 'order',component: OrderPageComponent},
+      {path: 'order_position/:id', component: OrderPositionComponent},
       {path: 'analytics',component: AnalyticsPageComponent},
       {path: 'history',component: HistoryPageComponent},
       {path: 'categories',component: CategoriesPageComponent},

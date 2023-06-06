@@ -18,37 +18,37 @@ Orders.init(
             type: DataTypes.INTEGER,
             allowNull:false
         },
-        // list:
+        list:
+        {
+            type: DataTypes.STRING,
+            allowNull: true
+            //name:str,quantity:int,cost:int
+            // get()
+            // {
+            //     return this.getDataValue('list').split(';');
+            // },
+            // set(value)
+            // {
+            //     let data = this.getDataValue('list');
+            //     data += value + ';';
+            //     this.setDataValue('list',data);
+            // }
+        },
+        // name:
         // {
         //     type: DataTypes.STRING,
         //     allowNull: true,
-        //     //name:str,quantity:int,cost:int
-        //     get()
-        //     {
-        //         return this.getDataValue('list').split(';');
-        //     },
-        //     set(value)
-        //     {
-        //         let data = this.getDataValue('list');
-        //         data += value + ';';
-        //         this.setDataValue('list',data);
-        //     }
         // },
-        name:
-        {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        quantity:
-        {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        cost:
-        {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
+        // quantity:
+        // {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: true,
+        // },
+        // cost:
+        // {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: true,
+        // },
         user:
         {
             type: DataTypes.INTEGER,

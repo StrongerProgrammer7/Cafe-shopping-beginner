@@ -19,8 +19,8 @@ import { CategoriesPageComponent } from './categories-page/categories-page.compo
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { CategoriesFormComponent } from './categories-page/categories-form/categories-form.component';
 import { PositionsFormComponent } from './categories-page/categories-form/positions-form/positions-form.component';
-import { OrderFormComponent } from './order-page/order-form/order-form.component';
 import { OrderPositionComponent } from './order-page/order-position/order-position.component';
+import { OrderMenuComponent } from './order-page/order-menu/order-menu.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +37,8 @@ import { OrderPositionComponent } from './order-page/order-position/order-positi
     LoaderComponent,
     CategoriesFormComponent,
     PositionsFormComponent,
-    OrderFormComponent,
-    OrderPositionComponent
+    OrderPositionComponent,
+    OrderMenuComponent
   ],
   imports: [
     BrowserModule,

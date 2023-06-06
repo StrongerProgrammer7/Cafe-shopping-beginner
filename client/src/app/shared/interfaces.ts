@@ -12,6 +12,12 @@ export interface Category
   id?: string
 }
 
+export interface Message_Categories
+{
+  message:string,
+  categories: Category[]
+}
+
 export interface Position
 {
   name:string,
@@ -32,8 +38,9 @@ export interface Message_Position
   position: Position
 }
 
-export interface Message_Categories
+export interface Order
 {
-  message:string,
-  categories: Category[]
+  name:string,
+  cost:number,
+  count:number
 }
