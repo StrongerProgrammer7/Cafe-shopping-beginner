@@ -41,7 +41,25 @@ export interface Message_Position
 
 export interface Order
 {
+  date?: Date,
+  order?: number,
+  user?: number,
+  list:string,
+  positions?:Position[],
+  id?:number
+}
+
+export interface Orders_menu_view
+{
   name:string,
   cost:number,
-  count:number
+  count:number,
+  id?:number
+}
+
+export interface Filter
+{
+  start?: Date,
+  end?: Date,
+  order?: number
 }

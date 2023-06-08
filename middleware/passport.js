@@ -27,6 +27,7 @@ module.exports = function(passport)
                     done(null,user);
                 }else
                 {
+                    console.log('don`t access')
                     done(null,false);
                 }   
             } catch (error) 

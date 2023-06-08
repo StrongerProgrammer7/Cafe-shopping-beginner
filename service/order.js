@@ -1,6 +1,23 @@
+const { Op } = require('sequelize');
 const Order_model = require('../models/order');
-const sequelize = require('../routes/database');
+//const sequelize = require('../routes/database');
 const errorHadler = require('./utils/errorHandler');
+
+var options_dd_mm_yyyy = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    timezone: 'UTC',
+};
+
+
+var options_hh_mm_ss= {
+    timezone: 'UTC',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+};
+
 class Order
 {
     constructor()
@@ -18,8 +35,10 @@ class Order
         if(req.query.start)
             query.date = 
             {
-                [Op.gte]: req.query.start
+                [Op.gte]: getDate_yyyy_mm_dd(req.query.start) + ' ' + getDate_hh_mm_ss(req.query.start)
             }
+        
+
 
         if(req.query.end)
         {
@@ -27,7 +46,7 @@ class Order
             {
                 query.date ={};
             }
-            query.date['[Op.lte]'] =  req.query.end
+            query.date[Op.lte]= getDate_yyyy_mm_dd(req.query.end) + ' ' + getDate_hh_mm_ss(req.query.end)
         }
 
         if(req.query.order)
@@ -35,7 +54,7 @@ class Order
             
         try 
         {
-            console.log(req.query);
+
             const orders = await Order_model.findAll(
                 {
                     where:query,
@@ -46,21 +65,19 @@ class Order
                     ]
                 }
             );
-            res.status(200).json({success:"true",orders:orders});
+            res.status(200).json(orders);
         } catch (error) 
         {
             errorHadler(res,error);
         }
     }
 
-     async create(req,res)
+    async create(req,res)
     {
         const
         {
-            name,
-            quantity,
-            cost
-        } = req.body
+           list
+        } = req.body;
         try 
         {
             const lastOrder = await Order_model.findAll(
@@ -79,9 +96,7 @@ class Order
             const order = await Order_model.create(
                 {
                     order:maxOrder + 1,
-                    name:name,
-                    quantity:quantity,
-                    cost:cost,
+                    list:list,
                     user: req.user.id
                 }
             );
@@ -93,6 +108,16 @@ class Order
     }
 
 
+}
+
+function getDate_yyyy_mm_dd(date)
+{
+    return new Date(date).toISOString().slice(0, 10);
+}
+
+function getDate_hh_mm_ss(date)
+{
+    return new Date(date).toISOString().slice(11, 19);
 }
 
 

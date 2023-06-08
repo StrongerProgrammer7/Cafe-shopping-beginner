@@ -74,7 +74,6 @@ export class OrderPositionComponent implements OnInit
 
   onAddedToOrder(position: Position)
   {
-    console.log(position);
     this.orders.add(position);
   }
 

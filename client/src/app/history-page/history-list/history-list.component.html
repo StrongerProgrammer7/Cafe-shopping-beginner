@@ -1,0 +1,64 @@
+<table class="highlight mb2">
+  <thead>
+  <tr>
+      <th>№</th>
+      <th>Дата</th>
+      <th>Время</th>
+      <th>Сумма</th>
+      <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr
+  *ngFor="let order of orders">
+      <td>{{order.order}}</td>
+      <td>{{getDate(order.date!)}}</td>
+      <td>{{order.date | date: 'HH:mm:ss'}}</td>
+      <td>{{getTotalCost(order.list)}} руб.</td>
+      <td>
+          <button
+          (click)="selectOrder(order)"
+          class="btn btn-small grey darken-1" >
+              <i class="material-icons">open_in_new</i>
+          </button>
+      </td>
+  </tr>
+  </tbody>
+</table>
+
+
+
+
+<div class="modal modal-fixed-footer" #modal >
+  <div
+  *ngIf="currentSelectedOrder"
+  class="modal-content" >
+      <h4 class="mb1">Заказ №{{currentSelectedOrder.order}}</h4>
+      <table class="highlight">
+          <thead>
+          <tr>
+              <th>Название</th>
+              <th>Количество</th>
+              <th>Цена</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+          *ngFor="let position of currentSelectedOrder.positions"
+          >
+              <td>{{position.name}}</td>
+              <td>{{position.count}}</td>
+              <td>{{position.cost}} rub</td>
+          </tr>
+          </tbody>
+      </table>
+      <div class="order-summary">
+          <p>Общая стоимость <strong>{{getTotalCost(currentSelectedOrder.list)}} руб.</strong></p>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button
+      (click)="closeModal()"
+      class="modal-action waves-effect waves-black btn-flat">Закрыть</button>
+  </div>
+</div>
