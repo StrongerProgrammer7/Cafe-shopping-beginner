@@ -19,7 +19,7 @@ export class OrderService
 
   }
 
-  getAll(params: any={}):Observable<Order[]>
+  getAll_byParams(params: any={}):Observable<Order[]>
   {
     return this.http.get<Order[]>(`/api/order`,
     {
@@ -34,6 +34,11 @@ export class OrderService
   create(order: Order): Observable<Order>
   {
     return this.http.post<Order>('/api/order',order);
+  }
+
+  getAllOrders():Observable<Order[]>
+  {
+    return this.http.get<Order[]>('/api/analytics');
   }
 
 }

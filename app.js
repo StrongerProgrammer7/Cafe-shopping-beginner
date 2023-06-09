@@ -11,6 +11,7 @@ const analytics = require('./controller/analytics');
 const categories = require('./controller/categories');
 const orders = require('./controller/order');
 const position = require('./controller/position');
+const overview = require('./controller/overview');
 
 const app = express();
 app.use(morgan('dev')); 
@@ -23,6 +24,7 @@ app.use('/uploads',express.static(__dirname + "/uploads"));
 
 app.use('/',router);
 app.use('/api',analytics);
+app.use('/api',overview);
 app.use('/api',categories);
 app.use('/api',orders);
 app.use('/api',position);

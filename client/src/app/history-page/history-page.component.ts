@@ -64,7 +64,7 @@ export class HistoryPageComponent implements OnInit,OnDestroy,AfterViewInit
           offset: this.offset,
           limit: this.limit
         });
-      this.oSub =  this.orderService.getAll(params)
+      this.oSub =  this.orderService.getAll_byParams(params)
       .subscribe(
       {
         next:(orders) =>

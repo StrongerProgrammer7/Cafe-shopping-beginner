@@ -1,9 +1,8 @@
 const controller = require('./controller');
+const analytics = require('../service/analytics');
+const passport = require('passport');
 
-const analytics = require('../service/analytics').analytics;
-const overview = require('../service/analytics').overview;
-
-controller.get('/overview',overview);
-controller.get('/analytics',analytics);
+controller.post('/analytics',passport.authenticate('jwt', { session: false }),analytics.create);
+controller.get('/analytics',passport.authenticate('jwt', { session: false }),analytics.getAll);
 
 module.exports = controller

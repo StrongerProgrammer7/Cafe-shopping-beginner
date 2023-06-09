@@ -3,21 +3,6 @@ const Order_model = require('../models/order');
 //const sequelize = require('../routes/database');
 const errorHadler = require('./utils/errorHandler');
 
-var options_dd_mm_yyyy = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    timezone: 'UTC',
-};
-
-
-var options_hh_mm_ss= {
-    timezone: 'UTC',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-};
-
 class Order
 {
     constructor()
