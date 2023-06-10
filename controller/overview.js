@@ -2,7 +2,6 @@ const controller = require('./controller');
 const overview = require('../service/overview');
 const passport = require('passport');
 
-controller.post('/overview',passport.authenticate('jwt', { session: false }),overview.create);
-controller.get('/overview',passport.authenticate('jwt', { session: false }),overview.getAll);
+controller.get('/overview',passport.authenticate('jwt', { session: false }),overview.getInfo_aboutOrders);
 
 module.exports = controller

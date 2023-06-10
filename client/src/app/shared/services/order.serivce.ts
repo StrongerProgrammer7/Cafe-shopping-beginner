@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Order, Orders_menu_view, Position } from "../interfaces";
+import { Analytics, Order, Orders_menu_view, Position } from "../interfaces";
 import { MaterialService } from "../middleware/material.service";
 
 
@@ -41,6 +41,10 @@ export class OrderService
     return this.http.get<Order[]>('/api/analytics');
   }
 
+  getAnalyticsByOrder(): Observable<Analytics>
+  {
+    return this.http.get<Analytics>('/api/overview');
+  }
 }
 
 export class Order_menu

@@ -63,3 +63,21 @@ export interface Filter
   end?: Date,
   order?: number
 }
+
+export interface Analytics
+{
+  gain:
+  {
+    percent:number,
+    compare:number,
+    yesterday:number,
+    isHigher: boolean
+  },
+  orders:
+  {
+    percent:number,
+    compare:number,
+    yesterday:number,
+    isHigher: boolean
+  }
+}

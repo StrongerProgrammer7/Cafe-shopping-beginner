@@ -2,20 +2,26 @@
 <div class="page-title">
     <h4>
         Обзор за вчера ({{getDate()}})
-        <i class="material-icons black-text pointer" id="dashboard-info">info_outline</i>
+        <i class="material-icons black-text pointer"
+        (click)="openInfoModel()" >info_outline</i>
     </h4>
 </div>
-<div class="row">
+<div class="row"
+*ngIf="analytics; else loader">
     <div class="col s12 l6">
         <div class="card light-blue lighten-2 white-text">
             <div class="card-content">
                 <span class="card-title">Выручка:</span>
-                <h3>20 000 руб.</h3>
-                <h3 class="green-text text-darken-2 m0 mb1">
-                    <i class="material-icons">arrow_upward</i>
-                    26%
+                <h3>{{analytics.gain.yesterday}} руб.</h3>
+                <h3 class="m0 mb1"
+                [ngClass]="{
+                  'green-text text-darken-2':analytics.gain.isHigher,
+                  'red-text': analytics.gain.isHigher === false
+                }">
+                    <i class="material-icons">{{analytics.gain.isHigher === true ? 'arrow_upward' : 'arrow_downward'}}</i>
+                    {{analytics.gain.percent}}%
                 </h3>
-                <p>Выручка вашего бизнеса вчера на 20% выше среднего: 5555 руб. в день</p>
+                <p>Выручка вашего бизнеса вчера на {{analytics.gain.percent}}% {{analytics.gain.isHigher === true ? 'выше' : 'ниже'}} среднего: {{analytics.gain.compare}} руб. в день</p>
             </div>
         </div>
     </div>
@@ -23,23 +29,30 @@
         <div class="card orange lighten-2 white-text">
             <div class="card-content">
                 <span class="card-title">Заказы:</span>
-                <h3>200 зак.</h3>
-                <h3 class="red-text m0 mb1">
-                    <i class="material-icons">arrow_downward</i>
-                    26%
+                <h3>{{analytics.orders.yesterday}} зак.</h3>
+                <h3 class="m0 mb1"
+                [ngClass]="{
+                  'green-text text-darken-2':analytics.orders.isHigher,
+                  'red-text': analytics.orders.isHigher === false
+                }"
+               >
+                    <i class="material-icons">{{analytics.orders.isHigher === true ? 'arrow_upward' : 'arrow_downward'}}</i>
+                    {{analytics.orders.percent}}%
                 </h3>
-                <p>Число заказов вчера на 26% ниже среднего значения: 3 зак. в день</p>
+                <p>Число заказов вчера на {{analytics.orders.percent}}% {{analytics.orders.isHigher === true ? 'выше' : 'ниже'}} среднего значения: {{analytics.orders.compare}} зак. в день</p>
             </div>
         </div>
     </div>
 </div>
 
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
 
-<a id="menu" class="waves-effect waves-light btn btn-floating"><i class="material-icons">info</i></a>
-
-<div class="tap-target" data-target="menu">
+<div class="tap-target" data-target="menu" #tapTarget>
   <div class="tap-target-content">
       <h5>Зачем нужна эта страница?</h5>
       <p>Страница “Обзор” покажет динамику продаж за предыдущий день. Сравнение со средним значениями поможет вам понять, как идут дела у Вашего бизнеса.</p>
   </div>
 </div>
+

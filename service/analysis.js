@@ -3,6 +3,7 @@ const moment = require('moment');
 
 class Analysis
 {
+
     _getOrdersMap(orders = [])
     {
         const daysOrders = {};
@@ -27,7 +28,7 @@ class Analysis
     {
         return orders.reduce((total,order)=>
         {   
-            let list = this._getArrayFromString(order.list);
+            let list = getArrayFromString(order.list);
             const orderCost = list.reduce(
                 (/** @type {number} */ orderTotal,/** @type {{ cost: number; count: number; name: stirng }} */ item) => 
                 {
@@ -37,11 +38,11 @@ class Analysis
             return total += orderCost;
         },0)
     }
+}
 
-    _getArrayFromString(list = '')
-    {
-      return JSON.parse(list);
-    }
+function getArrayFromString(list = '')
+{
+    return JSON.parse(list);
 }
 
 module.exports = Analysis;
