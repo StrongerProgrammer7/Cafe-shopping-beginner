@@ -1,20 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Order, Position } from '../shared/interfaces';
+import { AnalyticsData } from '../shared/interfaces';
 import { MaterialService } from '../shared/middleware/material.service';
 import { OrderService } from '../shared/services/order.serivce';
+import Chart, { ChartTypeRegistry } from 'chart.js/auto';
 
 @Component({
   selector: 'app-analytics-page',
   templateUrl: './analytics-page.component.html',
   styleUrls: ['./analytics-page.component.css']
 })
-export class AnalyticsPageComponent implements OnInit, OnDestroy
+export class AnalyticsPageComponent implements  OnDestroy, AfterViewInit
 {
   oSub: Subscription = new Subscription;
-  orders: Order[] =[];
-  constructor(private orderService: OrderService)
+  analyticsData!: AnalyticsData;
+
+  @ViewChild('gain',{read: ElementRef}) gainRef: ElementRef | undefined;
+  @ViewChild('orders', {read: ElementRef}) orderRef: ElementRef | undefined;
+
+  pending: boolean = true;
+
+  constructor(private orderService: OrderService,
+    private readonly changeDetectorRef: ChangeDetectorRef)
   {
+
 
   }
   ngOnDestroy(): void
@@ -22,14 +31,34 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy
     if(this.oSub)
       this.oSub.unsubscribe();
   }
-  ngOnInit(): void
+
+
+  ngAfterViewInit(): void
   {
-    this.oSub = this.orderService.getAllOrders()
+    this.pending = false;
+    let config = this.baseConfigChart('Gain','rgb(255,99,132)',[''],[0]);
+
+    this.oSub = this.orderService.getAnalyticsData()
     .subscribe(
       {
-        next: (orders) =>
+        next: (data) =>
         {
-          this.orders = orders;
+          this.analyticsData = data;
+          console.log(this.analyticsData);
+          config.labels = data.chartX.map(item => item.label);
+          config.data = data.chartX.map(item => item.gain);
+
+
+          setTimeout(() =>
+          {
+            this.createChart('line',config,this.gainRef!);
+            config.label = 'Orders';
+            config.color = 'rgb(255,120,35)';
+            config.data =  data.chartX.map(item => item.order);
+            this.createChart('line',config,this.orderRef!);
+          }, 0);
+
+          this.pending = true;
         },
         error: (e) =>
         {
@@ -41,29 +70,55 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy
     );
   }
 
-  getMiddleSum(): string
+  private baseConfigChart(label:string,color:string,labels:string[],data:number[])
   {
-    let count = 0;
-    let total = 0;
-    for(let i=0;i<this.orders.length;i++)
-    {
-      total +=  this.getArrayFromString(this.orders[i].list).reduce(
-        (accum:number,position:Position) =>
-        {
-          accum += position.cost * position.count!;
-          return accum;
-        },
-        0
-      );
-      count++;
+    return {
+      label: label,
+      color: color,
+      labels: labels,
+      data: data
     }
-
-    return (total/count ).toString();
   }
 
-  private getArrayFromString(list:string): Array<Position>
+  private createChart(
+    type:keyof ChartTypeRegistry,
+    config:{
+    labels:string[],label:string,data:any,color:string
+  }, ref: ElementRef)
   {
-    return JSON.parse(list);
+    const ctx = ref.nativeElement.getContext('2d');
+    ctx.canvas.height = '200px';
+
+
+    const chart = new Chart(ctx, this.createConfigChart(type,config));
+    chart.resize(50, 500);
   }
 
+  private createConfigChart(type:keyof ChartTypeRegistry,
+    config:{
+    labels:string[],label:string,data:any,color:string
+  })
+  {
+    return {
+      type: type,
+      data: {
+        labels: config.labels,
+        datasets: [{
+          label: config.label,
+          data: config.data,
+          borderWidth: 1,
+          borderColor:config.color
+
+        }]
+      },
+      options: {
+        scales: {
+          y:
+          {
+            beginAtZero: true
+          }
+        }
+      }
+    }
+  }
 }

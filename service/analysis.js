@@ -1,4 +1,4 @@
-
+const Order_model = require('../models/order');
 const moment = require('moment');
 
 class Analysis
@@ -24,7 +24,7 @@ class Analysis
         return daysOrders;
     }
 
-    _calculatePrice(orders = [])
+    _calculatePrice(orders = []) 
     {
         return orders.reduce((total,order)=>
         {   
@@ -37,6 +37,21 @@ class Analysis
             );
             return total += orderCost;
         },0)
+    }
+
+    async _getOrders(id)
+    {
+        return await Order_model.findAll(
+            {
+                where:
+                {
+                    user:id
+                },
+                order:[
+                    ['order','ASC']
+                ]
+            }
+        );
     }
 }
 

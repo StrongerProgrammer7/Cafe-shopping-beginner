@@ -81,3 +81,14 @@ export interface Analytics
     isHigher: boolean
   }
 }
+
+export interface AnalyticsData
+{
+  middleCheck:number,
+  chartX:
+  {
+    label:string,
+    order:number,
+    gain:number
+  }[]
+}

@@ -23,13 +23,13 @@ export class OverviewPageComponent implements OnInit, OnDestroy, AfterViewInit
   }
   ngOnInit(): void
   {
-    this.oSub = this.orderService.getAnalyticsByOrder()
+    this.oSub = this.orderService.getOverviewsByOrder()
     .subscribe(
       {
         next: (value) =>
         {
           this.analytics = value;
-          console.log(this.analytics);
+
         },
         error: (e) =>
         {

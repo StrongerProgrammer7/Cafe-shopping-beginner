@@ -1,17 +1,26 @@
-<div class="page-title">
+<div class="page-title p0">
   <h4>Аналитика</h4>
 </div>
 
-<div class="average-price">
-  <p>Средний чек <strong>{{getMiddleSum()}} р.</strong></p>
+<div *ngIf="analyticsData && pending; else loader" class="">
+  <div class="average-price p0">
+    <p>Средний чек <strong>{{ analyticsData? analyticsData.middleCheck : ''}} р.</strong></p>
+  </div>
+
+  <div class="size ma">
+    <div class="analytics-block pb3">
+      <h5>Выручка</h5>
+      <canvas #gain></canvas>
+    </div>
+
+    <div class="analytics-block">
+      <h5>Заказы</h5>
+      <canvas #orders></canvas>
+    </div>
+  </div>
 </div>
 
-<div class="analytics-block pb3">
-  <h5>Выручка</h5>
-  <canvas></canvas>
-</div>
 
-<div class="analytics-block">
-  <h5>Заказы</h5>
-  <canvas></canvas>
-</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

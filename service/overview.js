@@ -9,17 +9,7 @@ class Overview extends Analysis
     {
        try 
        {
-             const allOrders =  await Order_model.findAll(
-                {
-                    where:
-                    {
-                        user:req.user.id
-                    },
-                    order:[
-                        ['order','ASC']
-                    ]
-                }
-            );
+             const allOrders = await super._getOrders(req.user.id);
 
             const ordersMap = super._getOrdersMap(allOrders);
             

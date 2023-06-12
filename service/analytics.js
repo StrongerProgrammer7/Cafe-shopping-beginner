@@ -2,6 +2,7 @@ const Order_model = require('../models/order');
 const errorHadler = require('./utils/errorHandler');
 
 const Analysis = require('./analysis');
+const { default: moment } = require('moment');
 
 class Analytics extends Analysis
 {
@@ -10,48 +11,33 @@ class Analytics extends Analysis
         super()
     }
 
-    async getAll(req,res)
+ 
+
+    async getAnalyticsData(req,res)
     {
         try
         {
-            const allOrders =  await Order_model.findAll(
+            const allOrders =  await super._getOrders(req.user.id);
+            const ordersMap = super._getOrdersMap(allOrders);
+
+            const totalPrice = super._calculatePrice(allOrders);
+            const middleCheck = +(totalPrice / allOrders.length).toFixed(2);
+
+            const chartX = Object.keys(ordersMap).map( label =>
                 {
-                    where:
-                    {
-                        user:req.user.id
-                    },
-                    order:[
-                        ['order','ASC']
-                    ]
-                }
-            );
-            return res.status(200).json(allOrders);
-        }catch (e)
+                    const gain = super._calculatePrice(ordersMap[label]);
+                    const order = ordersMap[label].length;
+                    return { label,order,gain };
+                });
+             
+            return res.status(200).json({middleCheck,chartX});
+        }
+        catch(error)
         {
-            errorHadler(res,e);
+            errorHadler(res,error);
         }
     }
 
-   
-
-    async #getOrders(id)
-    {
-        return await Order_model.findAll(
-            {
-                where:
-                {
-                    user:id
-                },
-                order:[
-                    ['order','ASC']
-                ]
-            }
-        );
-    }
-
-
 }
-
-
 
 module.exports = new Analytics();
